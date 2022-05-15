@@ -1,0 +1,35 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@import './styles/abstracts/variables';
+@import './styles/vendors/bootstrap-custom';
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/utilities";
+// @import "~bootstrap/scss/forms";
+//@import "~bootstrap/scss/carousel";
+// @import "~bootstrap/scss/buttons";\
+
+// Vendors
+
+@import './styles/base/core';
+@import './styles/base/icons';
+@import './styles/base/layout';
+@import './styles/base/forms';
+@import './styles/base/buttons';
+
+@import './styles/components/pagination';
+
+@import "~swiper/swiper-bundle";
+
+@import './styles/vendors/ng-select';
+@import './styles/vendors/swiper';

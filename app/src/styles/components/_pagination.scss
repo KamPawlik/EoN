@@ -1,0 +1,45 @@
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: $spacer-1 0;
+
+  li {
+    .page-link {
+      display: inline-block;
+      cursor: pointer;
+      color: $color-black;
+      padding: 4px 8px;
+      border: 1px solid $color-gray--1;
+      margin: 2px;
+
+      @include media-breakpoint-up(md) {
+        padding: 8px 16px;
+        margin: 4px;
+      }
+
+      &:hover {
+        border-color: $color-primary;
+      }
+
+      &.active {
+        background-color: $color-primary;
+        color: $color-white;
+        border-color: $color-primary;
+        cursor: default;
+      }
+
+      &.dots {
+        border-color: transparent;
+        cursor: default;
+        padding: 4px 1px;
+        margin: 4px 0;
+
+        @include media-breakpoint-up(md) {
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+}

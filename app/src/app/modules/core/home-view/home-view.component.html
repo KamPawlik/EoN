@@ -1,0 +1,154 @@
+<app-hero
+  title="Dom czy mieszkanie?"
+  description="pomożemy Ci odnaleźć swoje miejsce"
+  image="hp-hero"
+  hp="true"
+></app-hero>
+
+<section class="search-box">
+  <div class="search-box__type">
+    <ng-select
+      class="hp"
+      [items]="categories"
+      [(ngModel)]="searchParams.category"
+      [searchable]="false"
+      placeholder="Rodzaj"
+    >
+    </ng-select>
+  </div>
+  <div class="search-box__city">
+    <input type="text" placeholder="Miasto" [(ngModel)]="searchParams.city" />
+  </div>
+  <div class="search-box__price">
+    <div class="range-input">
+      <input
+        type="number"
+        placeholder="od"
+        [(ngModel)]="searchParams.price_min"
+      />
+      <span>-</span>
+      <input
+        type="number"
+        placeholder="do"
+        [(ngModel)]="searchParams.price_max"
+      />
+    </div>
+    <span class="currency">zł</span>
+  </div>
+  <button (click)="search()" class="search-box__btn">Szukaj</button>
+</section>
+
+<div class="offers-slider__container">
+  <div class="container">
+    <section class="categories">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <a
+            [routerLink]="['/nieruchomosci', { category: 'Dom' }]"
+            class="categories__item categories__item--house"
+          >
+            <h3 class="categories__name">Domy</h3>
+          </a>
+        </div>
+        <div class="col-12 col-md-6">
+          <a
+            [routerLink]="['/nieruchomosci', { category: 'Mieszkanie' }]"
+            class="categories__item categories__item--apartment"
+          >
+            <h3 class="categories__name">Mieszkania</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="h4 mt-5 mb-3">Najnowsze ogłoszenia</h2>
+    <ng-container *ngIf="latestOffers$ | async as latestOffers; else loading">
+      <div
+        class="offers-slider__wrapper"
+        *ngIf="latestOffers.length"
+        [ngClass]="{
+          'is-prev': !latestSwiper.swiperRef?.isBeginning,
+          'is-next': !latestSwiper.swiperRef?.isEnd,
+          'is-loaded': latestSwiperLoaded
+        }"
+      >
+        <button
+          [disabled]="latestSwiper.swiperRef?.isBeginning"
+          (click)="latestSwiperWrapper.slidePrev()"
+          class="offers-slider__arrow offers-slider__arrow--prev icon-angle-left"
+        ></button>
+        <button
+          [disabled]="latestSwiper.swiperRef?.isEnd"
+          (click)="latestSwiperWrapper.slideNext()"
+          class="offers-slider__arrow offers-slider__arrow--next icon-angle-right"
+        ></button>
+        <swiper
+          #latestSwiper
+          class="offers-slider"
+          [config]="swiperBaseConfig"
+          (swiper)="latestSwiperInit($event)"
+        >
+          <ng-template swiperSlide *ngFor="let latestOffer of latestOffers">
+            <app-offer-list-item
+              class="offer-list-item"
+              [offer]="latestOffer"
+              verticalMode="true"
+            ></app-offer-list-item>
+          </ng-template>
+        </swiper>
+      </div>
+      <p *ngIf="!latestOffers.length">Brak ofert do wyświetlenia</p>
+    </ng-container>
+
+    <h2 class="h4 mt-3 mb-3">Promocje</h2>
+    <ng-container *ngIf="promotionalOffers$ | async as offers; else loading">
+      <div
+        *ngIf="offers.length"
+        class="offers-slider__wrapper"
+        [ngClass]="{
+          'is-prev': !promotionsSwiper.swiperRef?.isBeginning,
+          'is-next': !promotionsSwiper.swiperRef?.isEnd,
+          'is-loaded': promotionsSwiperLoaded
+        }"
+      >
+        <button
+          [disabled]="promotionsSwiper.swiperRef?.isBeginning"
+          (click)="promotionsSwiperWrapper.slidePrev()"
+          class="offers-slider__arrow offers-slider__arrow--prev icon-angle-left"
+        ></button>
+        <button
+          [disabled]="promotionsSwiper.swiperRef?.isEnd"
+          (click)="promotionsSwiperWrapper.slideNext()"
+          class="offers-slider__arrow offers-slider__arrow--next icon-angle-right"
+        ></button>
+        <swiper
+          #promotionsSwiper
+          class="offers-slider"
+          [config]="swiperBaseConfig"
+          (swiper)="promotionsSwiperInit($event)"
+        >
+          <ng-template swiperSlide *ngFor="let offer of offers">
+            <app-offer-list-item
+              class="offer-list-item"
+              [offer]="offer"
+              verticalMode="true"
+            ></app-offer-list-item>
+          </ng-template>
+        </swiper>
+      </div>
+      <p *ngIf="!offers.length">Brak ofert do wyświetlenia</p>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="row">
+        <app-offer-list-item
+          *ngFor="let i of [].constructor(4)"
+          class="col-6 col-lg-4 col-xl-3 loading-offer"
+          [isLoading]="true"
+          verticalMode="true"
+        >
+        </app-offer-list-item>
+      </div>
+    </ng-template>
+  </div>
+</div>

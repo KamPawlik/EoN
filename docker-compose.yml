@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server/app:/app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    # environment:
+    #   - DB_HOST=localhost
+    #   - DB_NAME=btredb-kp
+    #   - DB_USER=postgres
+    #   - DB_PASS=admin
+  frontend:
+    build: ./app
+    ports:
+      - '4200:4200'
+    volumes:
+      - ./app/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend

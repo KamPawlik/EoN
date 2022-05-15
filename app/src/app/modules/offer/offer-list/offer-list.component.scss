@@ -1,0 +1,166 @@
+@import "../../../../styles/shared";
+
+.range-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+  }
+
+  span {
+    color: $color-white;
+    margin: 0 7px;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.category-select {
+  margin-bottom: 10px;
+}
+
+.selected-cities {
+  font-size: 14px;
+  margin-top: $spacer-1;
+  color: $color-white;
+
+  &__label {
+    color: $color-primary--light;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  &__list {
+    display: inline;
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: inline;
+    }
+  }
+
+  &__btn-del {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-primary--light;
+    font-size: 10px;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 2px solid $color-primary--light;
+    border-radius: 100%;
+    margin: 0 $spacer-1 0 $spacer-1 / 2;
+
+    &:hover {
+      color: $color-white;
+      border-color: $color-white;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.search {
+  position: relative;
+  background-color: $color-primary--light;
+  background: linear-gradient(
+    to bottom,
+    $color-primary--light 0%,
+    rgba($color-primary--light, 0.5) 70%,
+    rgba($color-primary--light, 0) 100%
+  );
+  background-image: url("/assets/images/hero-offers.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 30px 0;
+  margin-bottom: 25px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  label,
+  .btn-link {
+    color: $color-white;
+  }
+
+  .btn-primary {
+    margin-right: 15px;
+  }
+}
+
+.sort-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto 25px;
+  max-width: 400px;
+
+  @include media-breakpoint-up(md) {
+    max-width: 100%;
+  }
+
+  &__title {
+    margin: 10px 10px 10px 0;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__order-by,
+  &__page-size {
+    @include media-breakpoint-down(sm) {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__page-size {
+    width: 75px;
+    margin: 0 10px;
+  }
+
+  &__order-by {
+    width: 200px;
+  }
+}
+
+.loading-sort {
+  height: 70px;
+}
+
+.dealer-card {
+  display: block;
+  padding-top: 5px;
+  max-width: 400px;
+  margin: 0 auto 30px;
+}
+.dealer-card-loading {
+  display: block;
+  padding-top: 5px;
+  margin-bottom: 30px;
+}

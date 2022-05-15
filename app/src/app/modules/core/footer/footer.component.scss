@@ -1,0 +1,13 @@
+@import "src/styles/shared";
+
+.page-footer {
+  text-align: center;
+  color: $color-white;
+  background-color: $color-primary;
+  padding: 15px;
+  margin-top: 50px;
+
+  p {
+    margin: 0;
+  }
+}

@@ -1,0 +1,168 @@
+@import "src/styles/shared";
+
+.range-input {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin: 0 7px;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.search-box {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $color-primary--light;
+  max-width: 800px;
+  padding: 15px;
+  border-radius: 8px;
+  margin: -41px auto 0;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
+
+  input {
+    height: 50px;
+  }
+
+  &__type {
+    width: 100%;
+    @include media-breakpoint-up(md) {
+      width: 160px;
+    }
+  }
+
+  &__city {
+    flex-grow: 1;
+    margin: 10px 0;
+    @include media-breakpoint-up(md) {
+      margin: 0 15px;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+
+    @include media-breakpoint-up(md) {
+      width: 245px;
+    }
+
+    .currency {
+      margin-left: $spacer-1;
+    }
+
+    input {
+      text-align: center;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &[type="number"] {
+        -moz-appearance: textfield;
+      }
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% + 30px);
+    color: $color-white;
+    background-color: $color-primary;
+    outline: none;
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    margin: 15px -15px -15px;
+
+    @include media-breakpoint-up(md) {
+      width: 95px;
+      border-radius: 0 8px 8px 0;
+      margin: -15px -15px -15px 15px;
+    }
+
+    &:hover {
+      background-color: $color-primary--dark;
+    }
+  }
+}
+
+.categories {
+  margin-top: $spacer-5;
+
+  &__item {
+    display: flex;
+    align-items: flex-end;
+    background-position: center;
+    background-size: cover;
+    height: 150px;
+    box-shadow: 0 0 6px -3px rgba(0, 0, 0, 0.2);
+    transition: box-shadow ease-in-out 0.35s;
+    &:first-child {
+      margin-bottom: 15px;
+      @include media-breakpoint-up(md) {
+        margin-bottom: 0;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    &--house {
+      background-image: url("/assets/images/category-house.jpg");
+    }
+
+    &--apartment {
+      background-image: url("/assets/images/category-apartment.jpg");
+    }
+  }
+
+  &__name {
+    font-size: $base-font-size;
+    background-color: $color-white;
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.offer-list-item {
+  width: 100%;
+}
+
+.loading-offer {
+  display: none;
+  &:nth-child(-n + 2) {
+    display: block;
+  }
+
+  @include media-breakpoint-up(lg) {
+    &:nth-child(-n + 3) {
+      display: block;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    display: block;
+  }
+}

@@ -1,0 +1,116 @@
+<div class="container" *ngIf="offer$ | async as offer; else loading">
+  <div class="row">
+    <div class="col-12 col-md-8 main-column">
+      <div class="offer-gallery">
+        <swiper
+          *ngIf="offer.offer_images.length"
+          class="offer-thumbnails"
+          [config]="thumbnailsConfig"
+          [(index)]="thumbnailsActiveId"
+        >
+          <ng-template swiperSlide
+            ><img
+              [ngClass]="{ active: swiperActiveId == 0 }"
+              (click)="goToSlide(0)"
+              src="{{ offer.photo_main }}"
+              alt=""
+          /></ng-template>
+          <ng-template
+            *ngFor="let image of offer.offer_images; let i = index"
+            swiperSlide
+            ><img
+              [ngClass]="{ active: swiperActiveId == i + 1 }"
+              (click)="goToSlide(i + 1)"
+              src="{{ apiServer + image }}"
+          /></ng-template>
+          <button class="swiper-button-prev icon-angle-up"></button>
+          <button class="swiper-button-next"></button>
+        </swiper>
+
+        <div class="offer-gallery__content">
+          <swiper
+            class="offer-gallery__main-img hidden-nav"
+            #swiperWrapper
+            [config]="mainImageConfig"
+            [(index)]="swiperActiveId"
+            (slideChange)="slideChange()"
+          >
+            <ng-template swiperSlide
+              ><img src="{{ offer.photo_main }}" alt=""
+            /></ng-template>
+            <ng-template *ngFor="let image of offer.offer_images" swiperSlide
+              ><img src="{{ apiServer + image }}"
+            /></ng-template>
+            <button class="swiper-button-prev prevEl">Prev</button>
+            <button class="swiper-button-next nextEl">Next</button>
+          </swiper>
+          <div *ngIf="offer.offer_images.length" class="offer-gallery__nav">
+            <button
+              (click)="prevSlide()"
+              class="btn-icon icon-angle-left"
+            ></button>
+            <div>
+              Zdjęcie {{ swiperActiveId + 1 }} z
+              {{ offer.offer_images.length + 1 }}
+            </div>
+            <button
+              (click)="nextSlide()"
+              class="btn-icon icon-angle-right"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-box__main-title mb-2 mt-4">Szczegóły ogłoszenia</h2>
+      <div class="section-box details">
+        <p class="details__city mb-0">
+          <strong
+            >{{ offer.category }} na sprzedaż, {{ offer.city }}
+            <span *ngIf="offer.address">ul. {{ offer.address }}</span></strong
+          >
+        </p>
+        <p class="details__date">
+          Dodano: {{ offer.list_data | date: "d MMMM yyyy" }}
+        </p>
+
+        <div class="details__meta">
+          <span>{{ offer.rooms | rooms }}</span>
+          <span>{{ offer.sqm }} m<sup>2</sup></span>
+        </div>
+        <p>Miejsca parkingowe: {{ offer.parking_places }}</p>
+
+        <div class="details__price-box">
+          <p class="details__price mb-0">
+            {{ offer.price | number: "1.0-0" | noComma }} zł
+          </p>
+          <p *ngIf="offer.old_price" class="details__old-price mb-0">
+            {{ offer.old_price | number: "1.0-0" | noComma }} zł
+          </p>
+        </div>
+        <p class="details__price-m2">
+          {{ offer.price / offer.sqm | number: "1.0-0" | noComma }} zł/m<sup
+            >2</sup
+          >
+        </p>
+      </div>
+
+      <h2 class="section-box__main-title mb-2 mt-3">Opis</h2>
+      <div class="section-box">
+        <p class="offer__date">{{ offer.description }}</p>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <app-dealer-card [dealer]="offer.dealer"></app-dealer-card>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading-section">
+    <div class="app-loader">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ng-template>

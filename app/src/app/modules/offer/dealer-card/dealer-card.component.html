@@ -1,0 +1,39 @@
+<div
+  class="person-box"
+  [class.loading]="isLoading"
+  [class.hidden-btn]="hiddenButton"
+>
+  <div class="person-box__img-wrapper">
+    <img
+      *ngIf="dealer?.photo"
+      class="person-box__img"
+      src="{{ dealer.photo }}"
+      alt="{{ dealer.name }}"
+    />
+  </div>
+  <p class="person-box__name">
+    <ng-container *ngIf="dealer">
+      {{ dealer.name }}
+    </ng-container>
+  </p>
+  <div class="person-box__contact-details">
+    <span [class.hidden]="!dealer?.email" class="person-box__contact"
+      ><i class="icon-envelope"></i>
+      <ng-container *ngIf="dealer?.email">
+        {{ dealer.email }}
+      </ng-container>
+    </span>
+    <span [class.hidden]="!dealer?.phone" class="person-box__contact"
+      ><i class="icon-phone"></i>
+      <ng-container *ngIf="dealer?.phone">
+        {{ dealer.phone }}
+      </ng-container>
+    </span>
+  </div>
+  <a
+    class="person-box__more-btn"
+    [routerLink]="['/nieruchomosci', { dealer: dealer?.id }]"
+    *ngIf="!hiddenButton"
+    >Zobacz wszystkie oferty</a
+  >
+</div>

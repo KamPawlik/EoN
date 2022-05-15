@@ -1,0 +1,8 @@
+.section-box {
+  &__main-title {
+    font-size: $header-font-size-4;
+  }
+  background-color: $color-white;
+  padding: $spacer-2;
+  border-radius: $border-radius-1;
+}

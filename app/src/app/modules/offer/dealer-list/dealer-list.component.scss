@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dealer-list {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-top: 50px;
+}

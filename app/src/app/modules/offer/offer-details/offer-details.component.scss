@@ -1,0 +1,158 @@
+@import "../../../../styles/shared";
+
+:host {
+  display: block;
+  padding-top: $spacer-3;
+  height: 100%;
+}
+
+.loading-section {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+
+  div {
+    position: absolute;
+    border: 4px solid $color-primary;
+    opacity: 1;
+    border-radius: 50%;
+    animation: loader-animation 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+
+    &:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+  }
+}
+@keyframes loader-animation {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+.main-column {
+  padding-top: 15px;
+  margin-bottom: 20px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+  }
+}
+
+.offer-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $spacer-2;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
+
+  &__content {
+    width: calc(100% - 125px);
+    flex-grow: 1;
+  }
+
+  &__main-img {
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+
+  &__nav {
+    margin-top: $spacer-1;
+    display: flex;
+    align-items: center;
+
+    .btn-icon {
+      color: $color-primary;
+      font-size: 28px;
+      background-color: transparent;
+      padding: 5px;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    > div {
+      padding: 0 $spacer-1;
+    }
+  }
+}
+
+.offer-thumbnails {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 15px;
+
+  @include media-breakpoint-up(md) {
+    width: 110px;
+    height: 300px;
+    margin-right: 15px;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+    cursor: pointer;
+    transition: opacity ease-in-out 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+.details {
+  &__meta {
+    span:not(:last-child) {
+      margin-right: $spacer-1;
+    }
+  }
+
+  &__price-box {
+    display: flex;
+    align-items: baseline;
+  }
+
+  &__price {
+    color: $color-black;
+    font-size: $header-font-size-3;
+    font-weight: 600;
+    margin-right: $spacer-1;
+  }
+
+  &__old-price {
+    font-weight: 600;
+    text-decoration: line-through;
+  }
+}

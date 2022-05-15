@@ -1,0 +1,299 @@
+<section class="search">
+  <div class="container">
+    <form class="" [formGroup]="selectedFilters">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <label>Rodzaj</label>
+          <ng-select
+            class="category-select"
+            [items]="categories"
+            formControlName="category"
+            [searchable]="false"
+          >
+          </ng-select>
+        </div>
+        <div class="col">
+          <label>Wybierz miasto</label>
+          <ng-select
+            *ngIf="isLoaded"
+            #cityInput
+            class="ng-select__hidden-values"
+            placeholder="Miasta"
+            formControlName="city"
+            [items]="selectedFilters.controls['city'].value"
+            [multiple]="true"
+            [isOpen]="false"
+            [selectOnTab]="true"
+            [addTag]="true"
+            [clearable]="false"
+            (blur)="onCityBlur()"
+          >
+          </ng-select>
+          <div
+            *ngIf="selectedFilters.controls['city'].value?.length"
+            class="selected-cities"
+          >
+            <span class="selected-cities__label">Wybrane miasta: </span>
+            <ul class="selected-cities__list">
+              <li *ngFor="let item of selectedFilters.controls['city'].value">
+                {{ item
+                }}<button
+                  class="selected-cities__btn-del"
+                  (click)="removeCity(item)"
+                >
+                  <i class="icon-close"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4 mt-3">
+        <div class="col-12 col-md-4">
+          <label>Cena</label>
+          <div class="range-input">
+            <input type="number" placeholder="od" formControlName="price_min" />
+            <span>-</span>
+            <input type="number" placeholder="do" formControlName="price_max" />
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label>Powierzchnia (m<sup>2</sup>)</label>
+          <div class="range-input">
+            <input type="number" placeholder="od" formControlName="sqm_min" />
+            <span>-</span>
+            <input type="number" placeholder="do" formControlName="sqm_max" />
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label>Ilość pokoi</label>
+          <div class="range-input">
+            <input type="number" placeholder="od" formControlName="rooms_min" />
+            <span>-</span>
+            <input type="number" placeholder="do" formControlName="rooms_max" />
+          </div>
+        </div>
+      </div>
+
+      <button
+        [disabled]="!selectedFilters.dirty"
+        class="btn btn-primary"
+        (click)="handleFilters()"
+      >
+        Filtruj
+      </button>
+      <button
+        *ngIf="customFilters || selectedFilters.dirty"
+        class="btn btn-link"
+        (click)="resetFilters()"
+      >
+        wyczyść filtry
+      </button>
+    </form>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row" *ngIf="offers$ | async as offers; else loading">
+    <div class="col-12 col-xl-3 order-xl-1" *ngIf="offers.dealer as dealer">
+      <app-dealer-card
+        class="dealer-card"
+        [dealer]="dealer"
+        hiddenButton="true"
+      ></app-dealer-card>
+    </div>
+    <div class="col-12 col-xl-9 mx-auto">
+      <ng-container>
+        <div class="sort-header">
+          <p class="sort-header__title">
+            Liczba ofert: <strong>{{ offers.count }}</strong>
+          </p>
+          <div class="sort-header__inputs">
+            <div>Sortuj:</div>
+            <ng-select
+              class="sort-header__page-size"
+              placeholder="Sortuj"
+              [items]="pageSize"
+              [(ngModel)]="sortingFilters.page_size"
+              [searchable]="false"
+              [clearable]="false"
+              (change)="handleSorting(true)"
+            >
+            </ng-select>
+
+            <ng-select
+              class="sort-header__order-by"
+              placeholder="Sortuj"
+              [items]="orderBy"
+              bindLabel="name"
+              bindValue="value"
+              [(ngModel)]="sortingFilters.orderby"
+              [searchable]="false"
+              [clearable]="false"
+              (change)="handleSorting()"
+            >
+            </ng-select>
+          </div>
+        </div>
+
+        <app-offer-list-item
+          *ngFor="let offer of offers.results"
+          [isLoading]="isLoading"
+          [offer]="offer"
+        ></app-offer-list-item>
+        <p *ngIf="!offers.results.length">
+          <strong>Brak ofert do wyświetlenia dla wybranych kryteriów.</strong>
+        </p>
+        <ul class="pagination" *ngIf="offers.total_pages > 1">
+          <li *ngIf="offers.current > 3" class="page-item">
+            <a (click)="handlePagination(1)" class="page-link">1</a>
+          </li>
+          <li
+            class="page-item"
+            *ngIf="offers.total_pages > 7 && offers.current > 4"
+          >
+            <span class="page-link dots">...</span>
+          </li>
+
+          <li
+            *ngIf="
+              offers.current > 6 && offers.current + 1 > offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current - 5)"
+              class="page-link"
+              >{{ offers.current - 5 }}</a
+            >
+          </li>
+          <li
+            *ngIf="
+              offers.current > 5 && offers.current + 2 > offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current - 4)"
+              class="page-link"
+              >{{ offers.current - 4 }}</a
+            >
+          </li>
+          <li
+            *ngIf="
+              offers.current > 4 && offers.current + 3 > offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current - 3)"
+              class="page-link"
+              >{{ offers.current - 3 }}</a
+            >
+          </li>
+          <li *ngIf="offers.current > 2" class="page-item">
+            <a
+              (click)="handlePagination(offers.current - 2)"
+              class="page-link"
+              >{{ offers.current - 2 }}</a
+            >
+          </li>
+          <li *ngIf="offers.current > 1" class="page-item">
+            <a
+              (click)="handlePagination(offers.current - 1)"
+              class="page-link"
+              >{{ offers.current - 1 }}</a
+            >
+          </li>
+          <li class="page-item">
+            <span class="page-link active">{{ offers.current }}</span>
+          </li>
+          <li *ngIf="offers.current + 1 < offers.total_pages" class="page-item">
+            <a
+              (click)="handlePagination(offers.current + 1)"
+              class="page-link"
+              >{{ offers.current + 1 }}</a
+            >
+          </li>
+          <li *ngIf="offers.current + 2 < offers.total_pages" class="page-item">
+            <a
+              (click)="handlePagination(offers.current + 2)"
+              class="page-link"
+              >{{ offers.current + 2 }}</a
+            >
+          </li>
+          <li
+            *ngIf="
+              offers.current < 4 && offers.current + 3 < offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current + 3)"
+              class="page-link"
+              >{{ offers.current + 3 }}</a
+            >
+          </li>
+          <li
+            *ngIf="
+              offers.current < 3 && offers.current + 4 < offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current + 4)"
+              class="page-link"
+              >{{ offers.current + 4 }}</a
+            >
+          </li>
+          <li
+            *ngIf="
+              offers.current < 2 && offers.current + 5 < offers.total_pages
+            "
+            class="page-item"
+          >
+            <a
+              (click)="handlePagination(offers.current + 5)"
+              class="page-link"
+              >{{ offers.current + 5 }}</a
+            >
+          </li>
+
+          <li
+            class="page-item"
+            *ngIf="
+              offers.total_pages > 7 && offers.current + 4 <= offers.total_pages
+            "
+          >
+            <span class="page-link dots">...</span>
+          </li>
+          <li *ngIf="offers.current < offers.total_pages" class="page-item">
+            <a
+              (click)="handlePagination(offers.total_pages)"
+              class="page-link"
+              >{{ offers.total_pages }}</a
+            >
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="row">
+      <div *ngIf="showDealer" class="col-12 col-xl-3 order-xl-2">
+        <app-dealer-card
+          class="dealer-card-loading"
+          isLoading="true"
+          hiddenButton="true"
+        ></app-dealer-card>
+      </div>
+      <div class="col-12 col-xl-9 mx-auto">
+        <div class="loading-sort"></div>
+        <app-offer-list-item
+          *ngFor="let i of [].constructor(sortingFilters.page_size)"
+          [isLoading]="true"
+        ></app-offer-list-item>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,48 @@
+<nav class="nav navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">EoN</a>
+    <button
+      class="navbar-toggler"
+      [class.open]="showMenu"
+      type="button"
+      [attr.aria-expanded]="showMenu"
+      aria-label="Toggle navigation"
+      (click)="showMenu = !showMenu"
+    >
+      <span class="icon-bar"></span>
+    </button>
+
+    <div
+      [@toggleMenu]="showMenu ? 'open' : 'closed'"
+      class="collapse navbar-collapse"
+    >
+      <ul class="navbar-nav ml-auto">
+        <li
+          class="nav-item active"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link" routerLink="/" (click)="showMenu = false"
+            >Strona główna</a
+          >
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            routerLink="/nieruchomosci"
+            (click)="showMenu = false"
+            >Nieruchomości</a
+          >
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            routerLink="/agenci-nieruchomosci"
+            (click)="showMenu = false"
+            >Nasi przedstawiciele</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,48 @@
+<a
+  [routerLink]="offer ? '/nieruchomosci/' + offer.id : null"
+  class="offer"
+  [ngClass]="[
+    verticalMode ? 'vertical' : 'horizontal',
+    isLoading ? 'loading' : ''
+  ]"
+>
+  <div
+    class="offer__image"
+    [ngStyle]="{
+      'background-image': offer ? 'url(' + offer.photo_main + ')' : null
+    }"
+  ></div>
+  <div class="offer__content">
+    <p class="offer__date">
+      <ng-container *ngIf="offer">
+        {{ offer.list_data | date: "d MMMM yyyy" }}
+      </ng-container>
+    </p>
+    <p class="offer__city">
+      <ng-container *ngIf="offer">
+        {{ offer.category }} na sprzedaż, {{ offer.city }}
+      </ng-container>
+    </p>
+    <div class="offer__meta">
+      <ng-container *ngIf="offer">
+        <span>{{ offer.rooms | rooms }}</span>
+        <span>{{ offer.sqm }} m<sup>2</sup></span>
+        <span
+          >{{ offer.price / offer.sqm | number: "1.0-0" | noComma }} zł/m<sup
+            >2</sup
+          ></span
+        >
+      </ng-container>
+    </div>
+    <div class="offer__price-box">
+      <ng-container *ngIf="offer">
+        <p class="offer__price">
+          {{ offer.price | number: "1.0-0" | noComma }} zł
+        </p>
+        <p *ngIf="offer.old_price" class="offer__old-price">
+          {{ offer.old_price | number: "1.0-0" | noComma }} zł
+        </p>
+      </ng-container>
+    </div>
+  </div>
+</a>

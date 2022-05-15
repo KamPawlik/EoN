@@ -1,0 +1,12 @@
+<!-- background-image: url('/assets/images/hp-hero.jpg'); -->
+<section class="hero" [class.hero--hp]="hp" style="background-image: url(/assets/images/{{image}}.jpg);">
+  <div class="container">
+    <div class="col-10 col-lg-6 col-xl-5 mx-auto mr-lg-0">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          {{ title }} <span *ngIf="description">{{ description }}</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>

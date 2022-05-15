@@ -1,0 +1,36 @@
+// Skeleton loading
+@mixin skeleton-background($height, $width: 100%, $mt: 5px) {
+  position: relative;
+  overflow: hidden;
+  color: $skeleton-background;
+  background-color: $skeleton-background;
+  min-height: $height;
+  width: $width;
+  max-width: 400px;
+  margin-top: $mt;
+}
+@mixin skeleton-shadow($delay: 0s) {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60px;
+  bottom: 0;
+  width: 60px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    $skeleton-shadow 40%,
+    transparent 100%
+  );
+  animation: skeleton-loading 1.8s $delay linear infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    left: -40px;
+  }
+  50%,
+  100% {
+    left: 400px;
+  }
+}

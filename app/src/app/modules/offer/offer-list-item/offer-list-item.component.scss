@@ -1,0 +1,230 @@
+@import "../../../../styles/shared";
+
+:host {
+  display: flex;
+}
+
+.offer {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  background-color: $color-white;
+  overflow: hidden;
+  transition: box-shadow ease-in-out 0.35s;
+  border-radius: $border-radius-1;
+  box-shadow: 0 0 6px -3px rgba(0, 0, 0, 0.2);
+  margin: 0 auto $spacer-3;
+  max-width: 400px;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+    max-width: 100%;
+  }
+
+  &:hover {
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  &.loading {
+    pointer-events: none;
+  }
+
+  &__image {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+    min-height: 220px;
+    background-size: cover;
+    background-position: center;
+
+    @include media-breakpoint-up(md) {
+      width: 300px;
+    }
+
+    .loading & {
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $skeleton-background;
+      }
+      &::after {
+        @include skeleton-shadow();
+      }
+    }
+  }
+
+  &__content {
+    padding: $spacer-2;
+    width: 100%;
+  }
+
+  &__date {
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-gray;
+    margin: 0;
+
+    .loading & {
+      @include skeleton-background(21px, 30%);
+      &::after {
+        @include skeleton-shadow(0.05s);
+        @include media-breakpoint-up(md) {
+          animation-delay: 0.75s;
+        }
+      }
+    }
+  }
+
+  &__city {
+    color: $color-black;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 $spacer-2;
+
+    .loading & {
+      @include skeleton-background(33px);
+      &::after {
+        @include skeleton-shadow(0.05s);
+        @include media-breakpoint-up(md) {
+          animation-delay: 0.75s;
+        }
+      }
+    }
+  }
+
+  &__meta {
+    color: $color-gray;
+    font-size: 20px;
+    font-weight: 600;
+
+    .loading & {
+      @include skeleton-background(45px);
+      &::after {
+        @include skeleton-shadow(0.05s);
+        @include media-breakpoint-up(md) {
+          animation-delay: 0.75s;
+        }
+      }
+    }
+
+    > span {
+      display: inline-block;
+      margin: $spacer-1 $spacer-3 $spacer-1 0;
+    }
+  }
+
+  &__price-box {
+    display: flex;
+    align-items: flex-end;
+    margin-top: $spacer-2;
+
+    .loading & {
+      @include skeleton-background(48px, 60%);
+      &::after {
+        @include skeleton-shadow(0.05s);
+        @include media-breakpoint-up(md) {
+          animation-delay: 0.75s;
+        }
+      }
+    }
+  }
+
+  &__price {
+    font-size: 32px;
+    font-weight: 700;
+    color: $color-primary;
+    margin: 0;
+
+    .loading & {
+      color: $skeleton-background;
+    }
+  }
+
+  &__old-price {
+    color: $color-gray;
+    font-weight: 600;
+    text-decoration: line-through;
+    margin: 0 0 4px $spacer-1;
+
+    .loading & {
+      color: $skeleton-background;
+    }
+  }
+}
+
+.offer.vertical {
+  flex-direction: column;
+  margin-bottom: 0;
+
+  .offer__image {
+    width: 100%;
+  }
+
+  .offer__content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  .offer__date {
+    display: none;
+  }
+
+  .offer__city {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 0;
+
+    &::after {
+      animation-delay: 0s;
+    }
+  }
+
+  .offer__meta {
+    font-size: 14px;
+    flex-grow: 1;
+
+    &::after {
+      animation-delay: 0s;
+    }
+
+    > span {
+      margin: $spacer-1 $spacer-1 $spacer-1 0;
+    }
+  }
+
+  .offer__price-box {
+    flex-wrap: wrap;
+    margin-top: $spacer-1;
+
+    &::after {
+      animation-delay: 0s;
+    }
+
+    .offer__old-price {
+      order: -1;
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  &.loading {
+    .offer__city {
+      min-height: 50px;
+    }
+
+    .offer__meta {
+      min-height: 37px;
+    }
+
+    .offer__price-box {
+      min-height: 48px;
+    }
+  }
+}

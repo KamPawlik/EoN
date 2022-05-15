@@ -1,0 +1,133 @@
+@import "../../../../styles/shared";
+
+.nav {
+  z-index: 100;
+  background: $color-white;
+  padding: 10px 15px;
+  box-shadow: 0px -2px 4px 0px rgba(116, 116, 116, 1);
+  
+  @include media-breakpoint-up(md) {
+    padding: 10px 0;
+  }
+
+  .navbar-brand {
+    width: 55px;
+    height: 55px;
+    background: $color-primary;
+    color: $color-white;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+  }
+
+  .navbar-toggler {
+    width: 30px;
+    height: auto;
+    padding: 0;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    .icon-bar {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: #000;
+      margin: 5px 0;
+      transition: linear 0.3s;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: #000;
+        transition: linear 0.3s;
+      }
+
+      &::before {
+        top: -8px;
+      }
+      
+      &::after {
+        bottom: -8px;
+      }
+    }
+
+    &.open .icon-bar {
+      background-color: rgba(0, 0, 0, 0);
+
+      &::before {
+        transform: rotateZ(45deg);
+        transform-origin: center;
+        margin-top: 8px;
+      }
+      &::after {
+        transform: rotateZ(-45deg);
+        transform-origin: center;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0px 2px 4px -3px rgba(116, 116, 116, 1);
+
+    @include media-breakpoint-up(lg) {
+      position: relative;
+      height: auto !important;
+      box-shadow: none;
+    }
+  }
+
+  .navbar-nav {
+    padding-bottom: 10px;
+    @include media-breakpoint-up(lg) {
+      padding-bottom: 0;
+    }
+
+    .nav-link {
+      color: $color-gray;
+      font-weight: 700;
+      transition: ease-in-out 0.3s;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active > .nav-link {
+        color: $color-primary;
+      }
+
+      @include media-breakpoint-up(lg) {
+        &:not(:last-child)::after {
+          content: "";
+          width: 2px;
+          height: 10px;
+          background: $color-gray--1;
+          display: block;
+          margin: 3px 6px 0;
+        }
+      }
+    }
+  }
+}

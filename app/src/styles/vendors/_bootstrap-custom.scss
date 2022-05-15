@@ -1,0 +1,49 @@
+$primary:       $color-primary;
+$secondary:     $color-secondary;
+$success:       $color-green;
+$info:          $color-primary;
+$warning:       $color-red;
+$danger:        $color-red;
+
+// Body
+$body-bg: $main-bg;
+$body-color: #333;
+
+
+// Navbar
+$navbar-padding-y: $spacer-1;
+$navbar-padding-x: 0;
+
+// Typographgy
+$font-family-sans-serif: $font-family-primary;
+$font-size-base: $base-font-size;
+
+$headings-color: $color-black;
+$headings-font-weight: 700;
+
+$h1-font-size: $header-font-size;
+$h2-font-size: $header-font-size-2;
+$h3-font-size: $header-font-size-3;
+$h4-font-size: $header-font-size;
+$h5-font-size: $base-font-size;
+$h6-font-size: $base-font-size;
+
+// Links
+$link-color: $color-primary;
+$link-hover-color: darken($color-primary, 15%);
+$link-hover-decoration: none;
+
+// Spacers
+$spacers: (
+  0: 0,
+  1: $spacer-1,
+  2: $spacer-2,
+  3: $spacer-3,
+  4: $spacer-4,
+  5: $spacer-5,
+  6: $spacer-6,
+  7: $spacer-7,
+  8: $spacer-8,
+  9: $spacer-9,
+  10: $spacer-10
+);
